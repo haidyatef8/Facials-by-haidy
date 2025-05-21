@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Facials by Haidy</title>
+  <style>
+    body { font-family: 'Segoe UI', sans-serif; margin: 0; padding: 0; background: #fff8f5; color: #333; }
+    header { background-color: #ffe2e2; padding: 20px; text-align: center; position: relative; }
+    header h1 { margin: 0; font-size: 2.2rem; }
+    nav { text-align: center; margin-top: 10px; }
+    nav a { margin: 0 15px; color: #b75d69; text-decoration: none; font-weight: bold; }
+    .lang-btn { position: absolute; top: 20px; right: 20px; padding: 6px 12px; background: #b75d69; color: white; border: none; cursor: pointer; border-radius: 5px; }
+    section { padding: 40px 20px; text-align: center; }
+    .services { display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; }
+    .service { background: white; padding: 20px; border-radius: 12px; width: 280px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+    footer { background: #b75d69; color: white; text-align: center; padding: 20px; }
+    .social a { margin: 0 10px; color: white; font-size: 1.2rem; text-decoration: none; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1 id="title">Facials by Haidy</h1>
+    <button class="lang-btn" onclick="toggleLanguage()">عربي</button>
+    <nav>
+      <a href="#home" id="homeLink">Home</a>
+      <a href="#services" id="servicesLink">Services</a>
+      <a href="#contact" id="contactLink">Contact</a>
+    </nav>
+  </header>
+
+  <section id="home">
+    <h2 id="welcome">Welcome to Facials by Haidy</h2>
+    <p id="desc">Specialized skincare services tailored for your unique skin.</p>
+  </section>
+
+  <section id="services">
+    <h2 id="servicesTitle">Our Services</h2>
+    <div class="services" id="servicesContainer">
+      <!-- Services will be injected here -->
+    </div>
+  </section>
+
+  <section id="contact">
+    <h2 id="contactTitle">Contact Us</h2>
+    <p><a href="https://wa.me/201211587345" target="_blank">📲 WhatsApp</a></p>
+    <p><a href="https://www.instagram.com/facialsbyhaidy_/" target="_blank">📸 Instagram</a></p>
+  </section>
+
+  <footer>
+    <p>&copy; 2025 Facials by Haidy</p>
+    <div class="social">
+      <a href="https://wa.me/201211587345">WhatsApp</a>
+      <a href="https://www.instagram.com/facialsbyhaidy_/">Instagram</a>
+    </div>
+  </footer>
+
+  <script>
+    const servicesData = {
+      en: [
+        { title: "Custom Facial", desc: "Deep cleansing treatment customized to your skin’s specific needs." },
+        { title: "Microneedling (Face & Hair)", desc: "Stimulate collagen & improve skin and hair appearance." },
+        { title: "OxyGeneo (Face & Back)", desc: "Revitalizing treatment for brighter and smoother skin." },
+        { title: "Dark Circles Peeling", desc: "Targeted peel to reduce dark under-eye circles." },
+        { title: "Acne & Pigmentation Peeling", desc: "Effective peel to treat acne and hyperpigmentation." }
+      ],
+      ar: [
+        { title: "تنظيف بشرة مخصص", desc: "تنظيف عميق ومخصص حسب احتياجات بشرتك الفريدة." },
+        { title: "ديرمابن للوجه والشعر", desc: "تحفيز الكولاجين لتحسين مظهر البشرة والشعر." },
+        { title: "أوكسيجينيو للوجه والظهر", desc: "جلسة تنشيطية لتفتيح وتنعيم البشرة." },
+        { title: "تقشير للهالات السوداء", desc: "تقشير مخصص لتفتيح الهالات تحت العين." },
+        { title: "تقشير للحبوب والتصبغات", desc: "علاج فعال لتصفية البشرة من الحبوب والبقع." }
+      ]
+    };
+
+    let currentLang = 'en';
+
+    function renderServices() {
+      const container = document.getElementById('servicesContainer');
+      container.innerHTML = '';
+      servicesData[currentLang].forEach(service => {
+        const div = document.createElement('div');
+        div.className = 'service';
+        div.innerHTML = `<h3>${service.title}</h3><p>${service.desc}</p>`;
+        container.appendChild(div);
+      });
+    }
+
+    function toggleLanguage() {
+      currentLang = currentLang === 'en' ? 'ar' : 'en';
+      document.body.dir = currentLang === 'ar' ? 'rtl' : 'ltr';
+
+      document.getElementById('title').innerText = currentLang === 'ar' ? 'جلسات العناية بالبشرة هايدي' : 'Facials by Haidy';
+      document.getElementById('homeLink').innerText = currentLang === 'ar' ? 'الرئيسية' : 'Home';
+      document.getElementById('servicesLink').innerText = currentLang === 'ar' ? 'الخدمات' : 'Services';
+      document.getElementById('contactLink').innerText = currentLang === 'ar' ? 'تواصل معنا' : 'Contact';
+      document.getElementById('welcome').innerText = currentLang === 'ar' ? 'مرحبًا بك في Facials by Haidy' : 'Welcome to Facials by Haidy';
+      document.getElementById('desc').innerText = currentLang === 'ar'
+        ? 'جلسات عناية مخصصة تناسب نوع بشرتك تمامًا.'
+        : 'Specialized skincare services tailored for your unique skin.';
+      document.getElementById('servicesTitle').innerText = currentLang === 'ar' ? 'خدماتنا' : 'Our Services';
+      document.getElementById('contactTitle').innerText = currentLang === 'ar' ? 'تواصل معنا' : 'Contact Us';
+
+      document.querySelector('.lang-btn').innerText = currentLang === 'ar' ? 'English' : 'عربي';
+
+      renderServices();
+    }
+
+    // Initial render
+    renderServices();
+  </script>
+</body>
+</html>
