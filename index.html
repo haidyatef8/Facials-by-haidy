@@ -111,3 +111,92 @@
   </script>
 </body>
 </html>
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>جلسات العناية بالبشرة هايدي - إدارة الخدمات</title>
+  <style>
+    body { font-family: Arial, sans-serif; background: #fff8f5; padding: 20px; color: #333; }
+    h1 { color: #b75d69; }
+    .service { background: white; margin: 10px 0; padding: 15px; border-radius: 8px; box-shadow: 0 0 5px rgba(183,93,105,0.3); display: flex; justify-content: space-between; align-items: center; }
+    .service span { max-width: 85%; }
+    button.delete { background: #e74c3c; color: white; border: none; padding: 6px 12px; border-radius: 6px; cursor: pointer; }
+    form { margin: 20px 0; background: #fff; padding: 15px; border-radius: 10px; box-shadow: 0 0 8px rgba(183,93,105,0.2); max-width: 500px; }
+    input, textarea { width: 100%; padding: 8px; margin: 6px 0; border: 1px solid #ccc; border-radius: 6px; font-size: 1rem; }
+    button.add { background: #b75d69; color: white; border: none; padding: 10px 18px; border-radius: 8px; cursor: pointer; font-size: 1.1rem; }
+  </style>
+</head>
+<body>
+
+  <h1>إدارة خدمات Facials by Haidy</h1>
+
+  <form id="addServiceForm">
+    <label>اسم الخدمة:</label>
+    <input type="text" id="serviceTitle" placeholder="اكتب اسم الخدمة" required />
+    
+    <label>وصف الخدمة:</label>
+    <textarea id="serviceDesc" placeholder="اكتب وصف الخدمة" rows="3" required></textarea>
+    
+    <button type="submit" class="add">أضف الخدمة</button>
+  </form>
+
+  <div id="servicesList"></div>
+
+  <script>
+    // مصفوفة الخدمات مبدئياً
+    let services = [
+      { title: "تنظيف بشرة مخصص", desc: "تنظيف عميق ومخصص حسب احتياجات بشرتك الفريدة." },
+      { title: "ديرمابن للوجه والشعر", desc: "تحفيز الكولاجين لتحسين مظهر البشرة والشعر." },
+      { title: "أوكسيجينيو للوجه والظهر", desc: "جلسة تنشيطية لتفتيح وتنعيم البشرة." },
+      { title: "تقشير للهالات السوداء", desc: "تقشير مخصص لتفتيح الهالات تحت العين." },
+      { title: "تقشير للحبوب والتصبغات", desc: "علاج فعال لتصفية البشرة من الحبوب والبقع." }
+    ];
+
+    const servicesList = document.getElementById('servicesList');
+    const form = document.getElementById('addServiceForm');
+    const titleInput = document.getElementById('serviceTitle');
+    const descInput = document.getElementById('serviceDesc');
+
+    // دالة عرض الخدمات
+    function renderServices() {
+      servicesList.innerHTML = '';
+      services.forEach((service, index) => {
+        const div = document.createElement('div');
+        div.className = 'service';
+        div.innerHTML = `
+          <span><strong>${service.title}</strong><br>${service.desc}</span>
+          <button class="delete" onclick="deleteService(${index})">حذف</button>
+        `;
+        servicesList.appendChild(div);
+      });
+    }
+
+    // دالة حذف خدمة
+    function deleteService(index) {
+      if(confirm("هل أنت متأكدة من حذف هذه الخدمة؟")) {
+        services.splice(index, 1);
+        renderServices();
+      }
+    }
+
+    // إضافة خدمة جديدة عند إرسال النموذج
+    form.addEventListener('submit', e => {
+      e.preventDefault();
+      const newTitle = titleInput.value.trim();
+      const newDesc = descInput.value.trim();
+      if(newTitle && newDesc) {
+        services.push({ title: newTitle, desc: newDesc });
+        renderServices();
+        form.reset();
+      }
+    });
+
+    // أول عرض للخدمات عند تحميل الصفحة
+    renderServices();
+  </script>
+
+</body>
+</html>
+<a href="manage-services.html" target="_blank" style="color:#b75d69; font-weight:bold;">إدارة الخدمات</a>
